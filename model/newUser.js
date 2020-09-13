@@ -8,7 +8,7 @@ class newUser{
 
     createNewUser(){
         var dbh = new Db;
-        dbh.insert(this.table, this.field, this.value)
+        return dbh.insert(this.table, this.field, this.value)
     }
 // ...
     // changePassword(){

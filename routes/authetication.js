@@ -31,12 +31,14 @@ let autheticate = (app) => {
     
     app.post('/register', (req, res) => {
             //add new user in newuser table
-            var newuser = new newUser
             var mailer = new Mailer;
-    
+            var newuser = new newUser(req.body.username, req.body.password, req.body.email)
+            
             if(req.body.username && req.body.password && req.body.email){
-                newuser.createNewUser(req.body.username)
-                mailer.register_mail(req.body.username, req.body.email, 'bernard.pub125147@gmail.com')
+                newuser.createNewUser().then((result)=>{
+                    var { insertId } = result
+                    mailer.register_mail(req.body.username, req.body.email, 'bernard.pub125147@gmail.com', insertId)
+                })
                 res.json({
                     'success' : true,
                     'message' : `Please check your email ${req.body.email} for confirmation email`

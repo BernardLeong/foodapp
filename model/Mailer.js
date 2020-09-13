@@ -9,7 +9,7 @@ class Mailer{
         var content = 
         `
         <div>Hi ${user},</div>
-        <div>please activiate your account <a href='http://localhost:8080/confirmUser/${newuserid}'>here</a></div>
+        <div>please activiate your account <a href='${process.env.MAINURL}/confirmUser/${newuserid}'>here</a></div>
         `
         var subject = 'Register with Us'
         this.sendmail(to, from, subject, content)
