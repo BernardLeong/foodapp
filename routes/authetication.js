@@ -2,14 +2,14 @@ const { Db } = require('../model/Db')
 const { newUser } = require('../model/newUser')
 const { User } = require('../model/User')
 const { Mailer } = require('../model/Mailer')
+const Auth = require('../model/Auth')
 
 let autheticate = (app) => {
     app.post('/login', (req, res) => {
 
         var auth = new Auth(req.body.username, req.body.password)
         var token = auth.signtoken()
-        //autheticate
-        // console.log(auth.autheticate())
+        
         auth.autheticate().then((successorFailure)=>{
             if(successorFailure){
                 var responseobj = 

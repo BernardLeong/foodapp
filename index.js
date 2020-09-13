@@ -1,7 +1,6 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var app = express()
-const Auth = require('./model/Auth')
 const autheticate = require('./routes/authetication')
 
 app.use(bodyParser.urlencoded({ extended: false }));
