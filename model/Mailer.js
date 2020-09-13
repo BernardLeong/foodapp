@@ -5,11 +5,11 @@ class Mailer{
         this.mailgun = require('mailgun-js')({apiKey: process.env.MAILGUNAPIKEY, domain: process.env.MAILGUNDOMAIN});
     }
 
-    register_mail(user, to, from){
+    register_mail(user, to, from, newuserid){
         var content = 
         `
         <div>Hi ${user},</div>
-        <div>please activiate your account here</div>
+        <div>please activiate your account <a href='http://localhost:8080/confirmUser/${newuserid}'>here</a></div>
         `
         var subject = 'Register with Us'
         this.sendmail(to, from, subject, content)

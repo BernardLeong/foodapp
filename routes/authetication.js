@@ -3,6 +3,7 @@ const { newUser } = require('../model/newUser')
 const { User } = require('../model/User')
 const { Mailer } = require('../model/Mailer')
 const Auth = require('../model/Auth')
+const env = require('dotenv').config()
 
 let autheticate = (app) => {
     app.post('/login', (req, res) => {
@@ -59,6 +60,13 @@ let autheticate = (app) => {
         })
         //when link is clicked fire off creating a user 
         res.send('Please log in with your new creditials')
+    })
+
+    app.post('/testing',(req, res)=>{
+        console.log(process.env.TESTING)
+        res.json({
+            'testing' : process.env.TESTING
+        })
     })
 }
 
