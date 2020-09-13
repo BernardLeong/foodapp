@@ -8,7 +8,14 @@ class User{
 
     createUser(){
         var dbh = new Db;
-        dbh.insert(this.table, this.field, this.value)
+        return dbh.insert(this.table, this.field, this.value)
+    }
+
+    findUserByUsername(username){
+        var dbh = new Db;
+        var query = `select username from user where username='${username}'`
+        console.log(query)
+        return dbh.exec(query)
     }
 // ...
     // changePassword(){

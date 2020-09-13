@@ -20,6 +20,25 @@ class Db{
         })
     }
 
+    findByField(table, field, value){
+        return new Promise((resolve, reject)=>{
+            mysql.createConnection({
+                host: process.env.DBHOST,
+                user: process.env.DBUSER,
+                password: process.env.DBPASSWORD,
+                database: process.env.DBNAME
+            }).then((conn)=>{
+                var query = `select * from ${table} where ${field}=${value}`
+                return conn.query(query);
+            })
+            .then((result)=>{
+                resolve(result)
+            }).catch((err)=>{
+                reject(err)
+            })
+        })
+    }
+
     findByID(table, id){
         return new Promise((resolve, reject)=>{
             mysql.createConnection({

@@ -31,44 +31,45 @@ let autheticate = (app) => {
     
     app.post('/register', (req, res) => {
             //add new user in newuser table
-            var mailer = new Mailer;
+            var mailer = new Mailer
+            var user = new User
             var newuser = new newUser(req.body.username, req.body.password, req.body.email)
             
             if(req.body.username && req.body.password && req.body.email){
-                newuser.createNewUser().then((result)=>{
-                    var { insertId } = result
-                    mailer.register_mail(req.body.username, req.body.email, 'bernard.pub125147@gmail.com', insertId)
+                user.findUserByUsername(req.body.username).then((user)=>{
+                    if(user.length > 0){
+                        res.json({'error' : 'User already exists'})
+                    }else{
+                        newuser.createNewUser().then((result)=>{
+                            var { insertId } = result
+                            mailer.register_mail(req.body.username, req.body.email, 'bernard.pub125147@gmail.com', insertId)
+                        })
+                        res.json({
+                            'success' : true,
+                            'message' : `Please check your email ${req.body.email} for confirmation email`
+                        })
+                    }
                 })
-                res.json({
-                    'success' : true,
-                    'message' : `Please check your email ${req.body.email} for confirmation email`
-                })
+
+
             }else{
                 res.json({
-                    'error' : 'Please entr Username AND Password'
+                    'error' : 'Please enter Username, Password and Email'
                 })
             }
            
     });
-    
-    app.get('/confirmUser/:id',(req, res)=>{
-        //check if req is a valid id
-        var dbh = new Db;
-        dbh.findByID('newuser',req.params.id).then((user)=>{
-            var user = user[0]
-            var { username, password, email } = user
-            var userObj = new User(username, password, email);
-            userObj.createUser()
-        })
-        //when link is clicked fire off creating a user 
-        res.send('Please log in with your new creditials')
-    })
 
-    app.post('/testing',(req, res)=>{
-        console.log(process.env.TESTING)
-        res.json({
-            'testing' : process.env.TESTING
+    app.get('/confirmUser/:id',(req, res)=>{
+        let dbh = new Db
+
+        dbh.findByID('newuser',req.params.id).then((newuser)=>{
+            var newuser = newuser[0]
+            var { username, password, email } = newuser
+            let user = new User(username, password, email)
+            user.createUser()
         })
+        res.send('Please log in to your new account with your new creditials')
     })
 }
 
