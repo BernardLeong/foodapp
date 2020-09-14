@@ -38,7 +38,7 @@ let autheticate = (app) => {
             if(req.body.username && req.body.password && req.body.email){
                 user.findUserByUsername(req.body.username).then((user)=>{
                     if(user.length > 0){
-                        res.json({'error' : 'User already exists'})
+                        res.json({'error' : 'Username already exists'})
                     }else{
                         newuser.createNewUser().then((result)=>{
                             var { insertId } = result
