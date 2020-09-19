@@ -13,7 +13,7 @@ class User{
 
     findUserByUsername(username){
         var dbh = new Db;
-        var query = `select username from user where username='${username}'`
+        var query = `select * from user where username='${username}'`
         console.log(query)
         return dbh.exec(query)
     }

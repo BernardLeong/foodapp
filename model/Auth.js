@@ -33,5 +33,8 @@ class Auth {
     }
 }
 
-module.exports = Auth;
+module.exports = {
+    'Auth' : Auth,
+    'jwt' : jwt,
+};
 

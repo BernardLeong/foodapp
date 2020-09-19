@@ -8,8 +8,8 @@ const env = require('dotenv').config()
 let autheticate = (app) => {
     app.post('/login', (req, res) => {
 
-        var auth = new Auth(req.body.username, req.body.password)
-        var token = auth.signtoken()
+        let auth = new Auth(req.body.username, req.body.password)
+        let token = auth.signtoken()
         
         auth.autheticate().then((successorFailure)=>{
             if(successorFailure){
@@ -31,9 +31,9 @@ let autheticate = (app) => {
     
     app.post('/register', (req, res) => {
             //add new user in newuser table
-            var mailer = new Mailer
-            var user = new User
-            var newuser = new newUser(req.body.username, req.body.password, req.body.email)
+            let mailer = new Mailer
+            let user = new User
+            let newuser = new newUser(req.body.username, req.body.password, req.body.email)
             
             if(req.body.username && req.body.password && req.body.email){
                 user.findUserByUsername(req.body.username).then((user)=>{
@@ -41,7 +41,7 @@ let autheticate = (app) => {
                         res.json({'error' : 'Username already exists'})
                     }else{
                         newuser.createNewUser().then((result)=>{
-                            var { insertId } = result
+                            let { insertId } = result
                             mailer.register_mail(req.body.username, req.body.email, 'bernard.pub125147@gmail.com', insertId)
                         })
                         res.json({

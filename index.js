@@ -1,12 +1,15 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var app = express()
+
 const autheticate = require('./routes/authetication')
+const userRoutes = require('./routes/userRoutes')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 autheticate(app)
+userRoutes(app)
 
 app.listen(8080)
 
