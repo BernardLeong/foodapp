@@ -2,7 +2,7 @@ const { Db } = require('../model/Db')
 const { newUser } = require('../model/newUser')
 const { User } = require('../model/User')
 const { Mailer } = require('../model/Mailer')
-const Auth = require('../model/Auth')
+const { Auth } = require('../model/Auth')
 const env = require('dotenv').config()
 
 let autheticate = (app) => {
